@@ -33,18 +33,18 @@ Home Assistant (препоръчително версия 2023.x или по-н�
 ```yaml
 switch:
   - platform: template
-    switches:
-      skylight:
-        value_template: ""
-        turn_on:
-          action: better_thermostat.set_temp_target_temperature
+	switches:
+	  skylight:
+		value_template: ""
+		turn_on:
+		  action: better_thermostat.set_temp_target_temperature
 		  data:
 		   temperature: "{{ states('input_number.eco_themperature_kuche') | float }}"
 		  metadata: {}
 		  target:
 		   entity_id: climate.thermostat_kuche
-        turn_off:
-          action: better_thermostat.restore_saved_target_temperature
+		turn_off:
+		  action: better_thermostat.restore_saved_target_temperature
 			data: {}
 		  metadata: {}
 		  target:
