@@ -27,40 +27,80 @@ Home Assistant (препоръчително версия 2023.x или по-н�
 
 ## 🛠️ Инсталация
 
-- Създаване на imbut_number помошник 
+- Създаване на два броя imbut_number помошник.
+  - С единият ще задаваме нормалната немпература на термоглавата
+
+ > input_number.normal_themperature_kuche
+ Ето как изглежда ръчно кодът на:
+
+ ```yaml
+ input_number:
+  - normal_themperature_kuche:
+   name: "NORMAL THEMPERATURE KUCHE"
+   min: 5
+   max: 30
+   step: 0.5
+   unit_of_measurement: "°C"
+ ```
+
+  - С втората ще задаваме температурата на еко мод
+ 
+ > input_number.eco_themperature_kuche
+ Ето как изглежда ръчно кодът на:
+
+ ```yaml
+ input_number:
+  - eco_mod_themperature_kuche:
+   name: "ECO MOD THEMPERATURE KUCHE"
+   min: 5
+   max: 20
+   step: 0.5
+   unit_of_measurement: "°C"
+ ```
+ Или направете това през графичният интерфейс на Home Assistant от менюто за "Помощници"
 
 - Създаване на Switch Template
 Ето как той може да бъде създаден ръчно:
 
 ```yaml
 switch:
-  - platform: template
-	switches:
-	  skylight:
-		value_template: ""
-		turn_on:
-		  action: better_thermostat.set_temp_target_temperature
-		  data:
-		   temperature: "{{ states('input_number.eco_themperature_kuche') | float }}"
-		  metadata: {}
-		  target:
-		   entity_id: climate.thermostat_kuche
-		turn_off:
-		  action: better_thermostat.restore_saved_target_temperature
-			data: {}
-		  metadata: {}
-		  target:
-			entity_id: climate.thermostat_kuche
-		  action: climate.set_temperature
-			data:
-		  temperature: "{{ states('input_number.normal_themperature_kuche') | float }}"
-		  metadata: {}
-		  target:
-			entity_id: climate.thermostat_kuche
+ - platform: template
+   switches:
+     skylight:
+    value_template: ""
+    turn_on:
+      action: better_thermostat.set_temp_target_temperature
+      data:
+       temperature: "{{ states('input_number.eco_themperature_kuche') | float }}"
+      metadata: {}
+      target:
+       entity_id: climate.thermostat_kuche
+    turn_off:
+      action: better_thermostat.restore_saved_target_temperature
+     data: {}
+      metadata: {}
+      target:
+     entity_id: climate.thermostat_kuche
+      action: climate.set_temperature
+     data:
+      temperature: "{{ states('input_number.normal_themperature_kuche') | float }}"
+      metadata: {}
+      target:
+     entity_id: climate.thermostat_kuche
 ```
 Или натиснете бутонът и използвайте графичният интерфейс
 
 [![Add template](/img/button%20ADD%20Temlate.svg)](https://my.home-assistant.io/redirect/config_flow_start?domain=template)
+
+Изберете Switch:
+![img](/img/Template001.png)
+
+Задайте както трябва да прави след като бъде вкл.
+![img](/img/Template002.png)
+
+Задайте и функцията и възтановяването на температурата такава каквато сте задали след изключването мъ:
+![img](/img/Template003.png)
+
 
 > [!TIP]
 > Ако този проект ви е харесъл, [ТУК](https://github.com/Bacard1?tab=repositories) ще намерите още интересни гранилища направени от мен.<br>
