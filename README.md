@@ -1,143 +1,119 @@
-# 🌿 Eco Mode for Thermostats in Home Assistant
+# 🌿 Eco Mode for Thermostats in Home Assistant  
 
-[![PayPal Donation](https://img.shields.io/badge/PayPal-Donate-blue?logo=paypal)](https://www.paypal.com/donate/?hosted_button_id=AAWFZVF2XCP5A)
-![Script](https://img.shields.io/badge/logo-yaml-green?logo=yaml)
-[![Bulgarian](https://img.shields.io/badge/BULGARIAN-language-green?logo=translate&labelColor=gray&style=flat-square&link=https://example.com/bg)](BG.md)
-[![English](https://img.shields.io/badge/ENGLISH-language-green?logo=translate&labelColor=gray&style=flat-square&link=https://example.com/en)](README.md)
+[![PayPal Donation](https://img.shields.io/badge/PayPal-Donate-blue?logo=paypal)](https://www.paypal.com/donate/?hosted_button_id=AAWFZVF2XCP5A)  
+![Script](https://img.shields.io/badge/logo-yaml-green?logo=yaml)  
+[![English](https://img.shields.io/badge/ENGLISH-language-green?logo=translate&labelColor=gray&style=flat-square)](README.md)  
+[![Bulgarian](https://img.shields.io/badge/BULGARIAN-език-green?logo=translate&labelColor=gray&style=flat-square&link=https://example.com/bg)](BG.md)  
 
-This project provides an automation solution for smart thermostat control in Home Assistant, optimizing energy efficiency while maintaining comfort. The system automatically adjusts temperatures based on presence detection and time of day, reducing energy consumption without sacrificing comfort.
+This project provides automation for managing radiator thermostats in **Home Assistant** to optimize energy efficiency. The system automatically lowers the temperature when no one is home or during nighttime, saving energy without compromising comfort. 🌡️💡  
 
-## 📦 CONTENTS
+---
+
+## 📦 Contents  
 
 - [🌿 Eco Mode for Thermostats in Home Assistant](#-eco-mode-for-thermostats-in-home-assistant)
-	- [📦 CONTENTS](#-contents)
-	- [🔧 Installation](#-installation)
-		- [Creating a Template Switch](#creating-a-template-switch)
-			- [Manual Configuration (YAML):](#manual-configuration-yaml)
-			- [Parameter Explanation:](#parameter-explanation)
-			- [Graphical Interface (GUI):](#graphical-interface-gui)
-			- [Additional Features:](#additional-features)
-			- [Tips:](#tips)
+	- [📦 Contents](#-contents)
+	- [🌟 Features](#-features)
+	- [📋 Requirements](#-requirements)
+	- [🛠️ Installation](#️-installation)
+		- [1. Create Helper Inputs for Temperature](#1-create-helper-inputs-for-temperature)
+			- [Example code for manual creation:](#example-code-for-manual-creation)
+		- [2. Create a Template Switch](#2-create-a-template-switch)
+			- [Example code for manual creation:](#example-code-for-manual-creation-1)
+			- [Alternative GUI Setup:](#alternative-gui-setup)
+	- [💡 Tips](#-tips)
 
-## 🔧 Installation
+---
 
-### Creating a Template Switch
+## 🌟 Features  
 
-The Template Switch is a key component of this automation, enabling easy switching between normal and eco modes. Here's a detailed guide:
+- **Automatic temperature adjustment** based on presence and time of day.  
+- **Eco Mode** using **Template Switch**:  
+  - Lowers temperature when no one is home or during nighttime.  
+  - Restores the previous temperature setting when turned off.  
+- **Integration** with all popular thermostats supported by Home Assistant (Zigbee, Z-Wave, WiFi, etc.).  
 
-#### Manual Configuration (YAML):
+---
+
+## 📋 Requirements  
+
+- **Home Assistant** (recommended version 2023.x or newer).  
+- Integrated **thermostats** in the system (e.g., Zigbee, Z-Wave, or WiFi thermostats).  
+
+---
+
+## 🛠️ Installation  
+
+### 1. Create Helper Inputs for Temperature  
+
+You need to create two `input_number` helpers:  
+- **First helper** – for setting the normal thermostat temperature.  
+- **Second helper** – for setting the Eco Mode temperature.  
+
+#### Example code for manual creation:  
+
+```yaml
+input_number:
+  - normal_temperature_kitchen:
+      name: "Normal Temperature (Kitchen)"
+      min: 5
+      max: 30
+      step: 0.5
+      unit_of_measurement: "°C"
+  - eco_mode_temperature_kitchen:
+      name: "Eco Mode Temperature (Kitchen)"
+      min: 5
+      max: 20
+      step: 0.5
+      unit_of_measurement: "°C"
+```
+
+📌 **Note:** You can also create these helpers via the Home Assistant GUI under **"Helpers"**.  
+
+---
+
+### 2. Create a Template Switch  
+
+The Template Switch will handle switching between normal and Eco Mode.  
+
+#### Example code for manual creation:  
 
 ```yaml
 switch:
   - platform: template
     switches:
       eco_mode_kitchen:
-        friendly_name: "Kitchen Eco Mode"
-        icon_template: >-
-          {% if is_state('switch.eco_mode_kitchen', 'on') %}
-            mdi:leaf
-          {% else %}
-            mdi:leaf-off
-          {% endif %}
-        value_template: "{{ states('climate.thermostat_kitchen') == 'eco' }}"
+        friendly_name: "Eco Mode (Kitchen)"
+        value_template: "{{ false }}"  # Can be adapted as needed
         turn_on:
-          - service: climate.set_temperature
-            target:
-              entity_id: climate.thermostat_kitchen
-            data:
-              temperature: "{{ states('input_number.eco_temperature_kitchen') | float }}"
-          - service: notify.mobile_app_phone
-            data:
-              message: "Eco mode activated in kitchen"
+          service: climate.set_temperature
+          target:
+            entity_id: climate.thermostat_kitchen
+          data:
+            temperature: "{{ states('input_number.eco_mode_temperature_kitchen') | float }}"
         turn_off:
-          - service: climate.set_temperature
-            target:
-              entity_id: climate.thermostat_kitchen
-            data:
-              temperature: "{{ states('input_number.normal_temperature_kitchen') | float }}"
-          - service: notify.mobile_app_phone
-            data:
-              message: "Eco mode deactivated in kitchen"
+          service: climate.set_temperature
+          target:
+            entity_id: climate.thermostat_kitchen
+          data:
+            temperature: "{{ states('input_number.normal_temperature_kitchen') | float }}"
 ```
 
-#### Parameter Explanation:
+#### Alternative GUI Setup:  
 
-1. **friendly_name**: Displayed in Home Assistant interface
-2. **icon_template**: Dynamically changes icon based on state
-   - `mdi:leaf` for active eco mode
-   - `mdi:leaf-off` for inactive eco mode
-3. **value_template**: Determines current switch state
-4. **turn_on** actions:
-   - Sets eco temperature from input_number helper
-   - Sends phone notification
-5. **turn_off** actions:
-   - Restores normal temperature
-   - Sends deactivation notification
-
-#### Graphical Interface (GUI):
-
-1. Go to `Settings` → `Automations & Scenes` → `+ Create Automation`
-2. Select "Use visual editor"
-3. Add Template Switch:
-   - Click "+ Add Trigger" → Select "Software"
-   - Choose "Template" as platform
-4. Configure:
-   - **Name**: "Kitchen Eco Mode"
-   - **Icon**: Use dynamic icon as in YAML example
-   - **State**: `{{ states('climate.thermostat_kitchen') == 'eco' }}`
-5. Set actions:
-   - **When turned on**:
-     - Call service `climate.set_temperature`
-     - Set your thermostat's entity_id
-     - Temperature: `{{ states('input_number.eco_temperature_kitchen') | float }}`
-     - Add notification (optional)
-   - **When turned off**:
-     - Call same service
-     - Set normal temperature
-     - Add deactivation notification
-
-#### Additional Features:
-
-1. **Adding conditions**:
-   ```yaml
-   turn_on:
-     - condition: state
-       entity_id: binary_sensor.home_occupied
-       state: 'off'
-     - service: climate.set_temperature
-       ...
-   ```
-   (Activates eco mode only when home is unoccupied)
-
-2. **Change logging**:
-   ```yaml
-   turn_on:
-     - service: system_log.write
-       data:
-         message: "Eco mode activated at {{ now() }}"
-         level: info
-   ```
-
-3. **Calendar integration**:
-   ```yaml
-   value_template: >-
-     {% if states('calendar.work_schedule') == 'on' %}
-       {{ true }}
-     {% else %}
-       {{ states('climate.thermostat_kitchen') == 'eco' }}
-     {% endif %}
-   ```
-
-#### Tips:
-
-- Test the switch before integrating into automations
-- Add backup temperatures in the template for error handling
-- Use `unique_id` when creating multiple similar switches
-- Consider adding delays before mode changes
-
-[![Add Template Switch](/img/button%20ADD%20Temlate.svg)](https://my.home-assistant.io/redirect/config_flow_start?domain=template)
+1. Click the button:  
+   [![Add template](/img/button%20ADD%20Temlate.svg)](https://my.home-assistant.io/redirect/config_flow_start?domain=template)  
+2. Select **Switch**.  
+   ![img](/img/Template001.png)  
+3. Configure the actions for turning on and off:  
+   - **Turn On:** Sets the temperature to Eco Mode.  
+   - **Turn Off:** Restores the normal temperature.  
+   ![img](/img/Template002.png)  
+   ![img](/img/Template003.png)  
 
 ---
-> [!TIP]
-> If you like this project, check out [more of my repositories here](https://github.com/Bacard1?tab=repositories).  
-> If you encounter issues or have questions, feel free to contact me.
+---
+## 💡 Tips  
+
+- If you like this project, check out [**more of my repositories here**](https://github.com/Bacard1?tab=repositories).  
+- If you encounter issues or have questions, feel free to contact me! 📩  
