@@ -1,9 +1,12 @@
 # 🌿 Eco Mode for Thermostats in Home Assistant  
 
-[![PayPal Donation](https://img.shields.io/badge/PayPal-Donate-blue?logo=paypal)](https://www.paypal.com/donate/?hosted_button_id=AAWFZVF2XCP5A)  
-![Script](https://img.shields.io/badge/logo-yaml-green?logo=yaml)  
-[![English](https://img.shields.io/badge/ENGLISH-language-green?logo=translate&labelColor=gray&style=flat-square)](README.md)  
-[![Bulgarian](https://img.shields.io/badge/BULGARIAN-език-green?logo=translate&labelColor=gray&style=flat-square&link=https://example.com/bg)](BG.md)  
+[![Home Assistant](https://img.shields.io/badge/🏠_Home_Assistant-41BDF5?logo=homeassistant)](https://www.home-assistant.io/) [![Donate via PayPal](https://img.shields.io/badge/PayPal-Donate-blue?logo=paypal)](https://www.paypal.com/donate/?hosted_button_id=AAWFZVF2XCP5A)
+![Script](https://img.shields.io/badge/logo-yaml-green?logo=yaml)
+[![Български](https://img.shields.io/badge/BG_Български-език-green?logo=translate&labelColor=gray&style=flat-square&link=https://example.com/bg
+)](BG.md)
+[![Deutch](https://img.shields.io/badge/DE_Deutsche-sprache-green?logo=translate&labelColor=gray&style=flat-square&link=https://example.com/bg
+)](DE.md)
+[![English](https://img.shields.io/badge/EN_English-language-green?logo=translate&labelColor=gray&style=flat-square&link=https://example.com/bg)](README.md)
 
 This project provides automation for managing radiator thermostats in **Home Assistant** to optimize energy efficiency. The system automatically lowers the temperature when no one is home or during nighttime, saving energy without compromising comfort. 🌡️💡  
 
@@ -12,16 +15,16 @@ This project provides automation for managing radiator thermostats in **Home Ass
 ## 📦 Contents  
 
 - [🌿 Eco Mode for Thermostats in Home Assistant](#-eco-mode-for-thermostats-in-home-assistant)
-	- [📦 Contents](#-contents)
-	- [🌟 Features](#-features)
-	- [📋 Requirements](#-requirements)
-	- [🛠️ Installation](#️-installation)
-		- [1. Create Helper Inputs for Temperature](#1-create-helper-inputs-for-temperature)
-			- [Example code for manual creation:](#example-code-for-manual-creation)
-		- [2. Create a Template Switch](#2-create-a-template-switch)
-			- [Example code for manual creation:](#example-code-for-manual-creation-1)
-			- [Alternative GUI Setup:](#alternative-gui-setup)
-	- [💡 Tips](#-tips)
+  - [📦 Contents](#-contents)
+  - [🌟 Features](#-features)
+  - [📋 Requirements](#-requirements)
+  - [🛠️ Installation](#️-installation)
+    - [1. Create Helper Inputs for Temperature](#1-create-helper-inputs-for-temperature)
+      - [Example code for manual creation:](#example-code-for-manual-creation)
+    - [2. Create a Template Switch](#2-create-a-template-switch)
+      - [Example code for manual creation:](#example-code-for-manual-creation-1)
+      - [Alternative GUI Setup:](#alternative-gui-setup)
+  - [💡 Tips](#-tips)
 
 ---
 
