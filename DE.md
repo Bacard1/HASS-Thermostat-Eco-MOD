@@ -1,10 +1,18 @@
 # 🌿 Eco-Modus für Thermostate in Home Assistant  
 
-[![Home Assistant](https://img.shields.io/badge/🏠_Home_Assistant-41BDF5?logo=homeassistant)](https://www.home-assistant.io/) [![Donate via PayPal](https://img.shields.io/badge/PayPal-Donate-blue?logo=paypal)](https://www.paypal.com/donate/?hosted_button_id=AAWFZVF2XCP5A)  
-![Script](https://img.shields.io/badge/logo-yaml-green?logo=yaml)  
-[![Български](https://img.shields.io/badge/BG_Български-език-green?logo=translate&labelColor=gray&style=flat-square&link=https://example.com/bg)](BG.md)  
-[![Deutsch](https://img.shields.io/badge/DE_Deutsche-Sprache-green?logo=translate&labelColor=gray&style=flat-square&link=https://example.com/de)](DE.md)  
-[![English](https://img.shields.io/badge/EN_English-language-green?logo=translate&labelColor=gray&style=flat-square&link=https://example.com/en)](README.md)  
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?color=ff00d8)](https://opensource.org/licenses/MIT)
+![GitHub last commit](https://img.shields.io/github/last-commit/Bacard1/HASS-Thermostat-Eco-MOD.svg?color=ff00d8)
+[![hacs_badge](https://img.shields.io/badge/HACS-2025.5.3-orange.svg?color=ff00d8)](https://github.com/hacs/integration)
+
+[![Home Assistant](https://img.shields.io/badge/.-HOME_ASSISTANT-blue?logo=homeassistant)](https://www.home-assistant.io/) 
+[![Donate via PayPal](https://img.shields.io/badge/PayPal-DONATE-blue?logo=paypal)](https://www.paypal.com/donate/?hosted_button_id=AAWFZVF2XCP5A)
+![Script](https://img.shields.io/badge/Script-YAML-blue?logo=yaml)
+
+[![Български](https://img.shields.io/badge/BG-ЕЗИК-gree?logo=translate&labelColor=gray&style=flat-square&link=https://example.com/bg
+)](BG.md)
+[![Deutch](https://img.shields.io/badge/DE-SPRACHE-gree?logo=translate&labelColor=gray&style=flat-square&link=https://example.com/bg
+)](DE.md)
+[![English](https://img.shields.io/badge/EN-LANGUAGE-gree?logo=translate&labelColor=gray&style=flat-square&link=https://example.com/bg)](README.md)
 
 Dieses Projekt bietet eine Automatisierung zur Steuerung von Heizkörperthermostaten in **Home Assistant** mit dem Ziel, die Energieeffizienz zu optimieren. Das System senkt automatisch die Temperatur, wenn niemand zu Hause ist oder während der Nacht, und spart so Energie ohne Komforteinbußen. 🌡️💡  
 
@@ -13,16 +21,16 @@ Dieses Projekt bietet eine Automatisierung zur Steuerung von Heizkörperthermost
 ## 📦 Inhalt  
 
 - [🌿 Eco-Modus für Thermostate in Home Assistant](#-eco-modus-für-thermostate-in-home-assistant)
-	- [📦 Inhalt](#-inhalt)
-	- [🌟 Funktionen](#-funktionen)
-	- [📋 Voraussetzungen](#-voraussetzungen)
-	- [🛠️ Installation](#️-installation)
-		- [1. Erstellung von Temperatur-Helfern](#1-erstellung-von-temperatur-helfern)
-			- [Beispielcode für die manuelle Erstellung:](#beispielcode-für-die-manuelle-erstellung)
-		- [2. Erstellung eines Template Switch](#2-erstellung-eines-template-switch)
-			- [Beispielcode für die manuelle Erstellung:](#beispielcode-für-die-manuelle-erstellung-1)
-			- [Alternative Erstellung über die Benutzeroberfläche:](#alternative-erstellung-über-die-benutzeroberfläche)
-	- [💡 Tipps](#-tipps)
+  - [📦 Inhalt](#-inhalt)
+  - [🌟 Funktionen](#-funktionen)
+  - [📋 Voraussetzungen](#-voraussetzungen)
+  - [🛠️ Installation](#️-installation)
+    - [1. Erstellung von Temperatur-Helfern](#1-erstellung-von-temperatur-helfern)
+      - [Beispielcode für die manuelle Erstellung:](#beispielcode-für-die-manuelle-erstellung)
+    - [2. Erstellung eines Template Switch](#2-erstellung-eines-template-switch)
+      - [Beispielcode für die manuelle Erstellung:](#beispielcode-für-die-manuelle-erstellung-1)
+      - [Alternative Erstellung über die Benutzeroberfläche:](#alternative-erstellung-über-die-benutzeroberfläche)
+  - [💡 Tipps](#-tipps)
 
 ---
 
